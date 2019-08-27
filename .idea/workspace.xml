@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f12b2176-7b80-4016-a72b-ebae93f19704" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/actions/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/actions/actions.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="28710c79ff0946c8e7f18fc85096c2924aec57fe" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -154,8 +153,8 @@
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1440" height="282" key="Git.Branch.Popup" />
-    <state width="1440" height="282" key="Git.Branch.Popup/1440.2560/1440.2560" />
-    <state width="1440" height="282" key="Git.Branch.Popup@1440.2560" />
+    <state width="1440" height="280" key="Git.Branch.Popup" />
+    <state width="1440" height="280" key="Git.Branch.Popup/1440.2560/1440.2560" />
+    <state width="1440" height="280" key="Git.Branch.Popup@1440.2560" />
   </component>
 </project>
