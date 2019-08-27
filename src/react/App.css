@@ -1,0 +1,37 @@
+.new-l {
+    position: absolute;
+    left: 35%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 20%;
+
+}
+
+.new-r {
+    position: absolute;
+    left: 65%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 20%;
+
+}
+
+a {
+    color: #7988ff;
+}
+
+a:hover {
+    color: #ffa7f5
+}
+
+.login {
+    max-width: 40%;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -50%);
+
+}
