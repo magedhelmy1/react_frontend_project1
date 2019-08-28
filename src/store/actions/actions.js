@@ -102,8 +102,3 @@ export const presentResult = results => {
         results: results
     }
 };
-
-// Now I modified the file
-// add one line
-// add two line
-// add three line
