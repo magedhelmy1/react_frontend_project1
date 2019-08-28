@@ -6,5 +6,6 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
+export const BUTTON_LABEL = 'BUTTON_LABEL';
 export const SEARCH_RESULTS = 'SEARCH_RESULTS';
 export const PRESENT_RESULTS = 'PRESENT_RESULTS';

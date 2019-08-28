@@ -9,7 +9,8 @@ const initialState = {
     loading: false,
     search: null,
     fetch: null,
-    results: []
+    results: [],
+    label: 'Show All'
 };
 
 // The job of the reducer is take in the initial state
@@ -50,6 +51,12 @@ const presentResult = (state, action) => {
     });
 };
 
+const changeSearchButton = (state, action) => {
+    return updateObject(state, {
+        label: 'Search'
+    });
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) { //we want to return one this methods when we receive a certain action type
         //If the action type received equals any of the following
@@ -62,10 +69,10 @@ const reducer = (state = initialState, action) => {
             return authFail(state, action);
         case actionTypes.AUTH_LOGOUT:
             return authLogout(state, action);
-
         case actionTypes.PRESENT_RESULTS:
-            return {...state, results: action.results};
-
+            return presentResult(state, action);
+        case actionTypes.BUTTON_LABEL:
+            return changeSearchButton(state, action);
 
         default:
             return state;
