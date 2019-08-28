@@ -87,10 +87,10 @@ export const authCheckState = () => {
 
 export const Search_Results = (mlabName, mlabCity, mlabDept, mlabClincCondi) => {
     return dispatch => {
-        axios.get("http://127.0.0.1:8000/api/")
+        axios.get(`http://127.0.0.1:8000/api/?mLab_name=${mlabName}&mLab_city_location=${mlabCity}&mLab_department=${mlabDept}&clinical_condition=${mlabClincCondi}`)
             .then(res => {
                 const mLab = res.data;
-                dispatch(presentResult(mLab))
+                dispatch(presentResult(mLab, mlabName, mlabCity, mlabDept, mlabClincCondi))
             });
     }
 };
