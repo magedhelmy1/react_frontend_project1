@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import CustomPaginationActionsTable from "./CustomPaginationActionsTable";
-import axios from 'axios';
-import * as actions from "../../store/actions/actions";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 

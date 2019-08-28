@@ -4,6 +4,7 @@ import * as actions from "../../store/actions/actions";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 
+
 class SearchBar extends React.Component {
 
 
@@ -15,11 +16,12 @@ class SearchBar extends React.Component {
         const mlabClincCondi = e.target.elements.mlabClincCondi.value;
 
         this.props.search(mlabName, mlabCity, mlabDept, mlabClincCondi);
-
+        this.props.change_button_text();
     };
 
 
     render() {
+
         return (
             <div>
                 <Jumbotron fluid>
@@ -40,7 +42,7 @@ class SearchBar extends React.Component {
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="mLab-Department">
-                                    <Form.Label>mLab Departement:</Form.Label>
+                                    <Form.Label>mLab Department:</Form.Label>
                                     <Form.Control name='mlabDept' type="text" placeholder="mLab Departement"/>
                                 </Form.Group>
 
@@ -52,7 +54,7 @@ class SearchBar extends React.Component {
                             </Form.Row>
 
                             <Button variant="primary" type="submit">
-                                Search
+                                {this.props.text_label}
                             </Button>
 
 
@@ -64,16 +66,23 @@ class SearchBar extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        text_label: state.label,
+    }
+};
+
 
 const
     mapDispatchToProps = dispatch => {
         return {
             search: (mlabName, mlabCity, mlabDept, mlabClincCondi) =>
-                dispatch(actions.Search_Results(mlabName, mlabCity, mlabDept, mlabClincCondi))
+                dispatch(actions.Search_Results(mlabName, mlabCity, mlabDept, mlabClincCondi)),
+            change_button_text: () => dispatch(actions.changeSearchButton())
         }
     };
 
-export default connect(null, mapDispatchToProps)(withRouter(SearchBar));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchBar));
 
 
 

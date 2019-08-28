@@ -90,7 +90,7 @@ export const Search_Results = (mlabName, mlabCity, mlabDept, mlabClincCondi) => 
         axios.get(`http://127.0.0.1:8000/api/?mLab_name=${mlabName}&mLab_city_location=${mlabCity}&mLab_department=${mlabDept}&clinical_condition=${mlabClincCondi}`)
             .then(res => {
                 const mLab = res.data;
-                dispatch(presentResult(mLab, mlabName, mlabCity, mlabDept, mlabClincCondi))
+                dispatch(presentResult(mLab))
             });
     }
 };
@@ -100,5 +100,12 @@ export const presentResult = results => {
     return {
         type: actionTypes.PRESENT_RESULTS,
         results: results
+    }
+};
+
+export const changeSearchButton = label => {
+    return {
+        type: actionTypes.BUTTON_LABEL,
+        label: label
     }
 };
