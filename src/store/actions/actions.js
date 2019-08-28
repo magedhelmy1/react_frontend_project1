@@ -102,7 +102,3 @@ export const presentResult = results => {
         results: results
     }
 };
-
-
-// This is a change
-// This is change 2

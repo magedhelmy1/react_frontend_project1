@@ -3,15 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="f12b2176-7b80-4016-a72b-ebae93f19704" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/actions/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/actions/actions.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="mock_odi_cloud_frontend" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -153,8 +151,8 @@
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1440" height="280" key="Git.Branch.Popup" />
-    <state width="1440" height="280" key="Git.Branch.Popup/1440.2560/1440.2560" />
-    <state width="1440" height="280" key="Git.Branch.Popup@1440.2560" />
+    <state width="1440" height="286" key="Git.Branch.Popup" />
+    <state width="1440" height="286" key="Git.Branch.Popup/1440.2560/1440.2560" />
+    <state width="1440" height="286" key="Git.Branch.Popup@1440.2560" />
   </component>
 </project>
