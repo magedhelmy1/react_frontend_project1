@@ -64,7 +64,7 @@ const reducer = (state = initialState, action) => {
             return authLogout(state, action);
 
         case actionTypes.PRESENT_RESULTS:
-            return presentResult(state, action);
+            return {...state, results: action.results};
 
 
         default:
