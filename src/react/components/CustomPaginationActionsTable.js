@@ -14,6 +14,10 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import TableHead from '@material-ui/core/TableHead';
+import * as actions from "../../store/actions/actions";
+import {withRouter} from "react-router";
+import {connect} from "react-redux";
+import {Link} from 'react-router-dom';
 
 
 // let us create a conflict
@@ -85,13 +89,6 @@ TablePaginationActions.propTypes = {
 };
 
 
-for (let i = 0; i < 100; i++) {
-
-}
-
-// Create a for loop to dynamically render the rows
-
-
 const useStyles2 = makeStyles(theme => ({
     root: {
         width: '100%',
@@ -122,6 +119,7 @@ const CustomPaginationActionsTable = (props) => {
         setPage(0);
     }
 
+
     return (
         <Paper className={classes.root}>
             <div className={classes.tableWrapper}>
@@ -129,9 +127,12 @@ const CustomPaginationActionsTable = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>mLab Name:</TableCell>
-                            <TableCell align="right">mLab City Location:</TableCell>
-                            <TableCell align="right">mLab Department</TableCell>
-                            <TableCell align="right">Clinical Condition</TableCell>
+                            <TableCell align="center">mLab City Location:</TableCell>
+                            <TableCell align="center">mLab Department</TableCell>
+                            <TableCell align="center">Clinical Condition</TableCell>
+                            <TableCell align="center">Session - Videos</TableCell>
+                            <TableCell align="center">Session - DRS</TableCell>
+
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -140,9 +141,20 @@ const CustomPaginationActionsTable = (props) => {
                                 <TableCell component="th" scope="row">
                                     {row.mLab_name}
                                 </TableCell>
-                                <TableCell align="right">{row.mLab_city_location}</TableCell>
-                                <TableCell align="right">{row.mLab_department}</TableCell>
-                                <TableCell align="right">{row.clinical_condition}</TableCell>
+                                <TableCell align="center">{row.mLab_city_location}</TableCell>
+                                <TableCell align="center">{row.mLab_department}</TableCell>
+                                <TableCell align="center">{row.clinical_condition}</TableCell>
+                                <TableCell
+                                    align="centre">
+                                    {
+                                        <Link to={`Annotation/${row.id}`}>{row.session_videos}</Link>
+                                    }
+
+                                </TableCell>
+
+
+                                < TableCell align="center">{row.session_drs}</TableCell>
+
 
                             </TableRow>
                         ))}
@@ -177,4 +189,11 @@ const CustomPaginationActionsTable = (props) => {
     );
 };
 
-export default CustomPaginationActionsTable;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        detail_view: (mlab_video) => dispatch(actions.get_detailed_view(mlab_video))
+    }
+};
+
+export default withRouter(connect(null, mapDispatchToProps)(CustomPaginationActionsTable));

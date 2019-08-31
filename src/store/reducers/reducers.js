@@ -10,7 +10,9 @@ const initialState = {
     search: null,
     fetch: null,
     results: [],
-    label: 'Show All'
+    label: 'Show All',
+    detail: 'Loading',
+
 };
 
 // The job of the reducer is take in the initial state
@@ -57,6 +59,12 @@ const changeSearchButton = (state, action) => {
     });
 };
 
+const view_mlab_view = (state, action) => {
+    return updateObject(state, {
+        detail: action.mlab_video
+    });
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) { //we want to return one this methods when we receive a certain action type
         //If the action type received equals any of the following
@@ -73,6 +81,8 @@ const reducer = (state = initialState, action) => {
             return presentResult(state, action);
         case actionTypes.BUTTON_LABEL:
             return changeSearchButton(state, action);
+        case actionTypes.DETAIL_VIEW:
+            return view_mlab_view(state, action);
 
         default:
             return state;

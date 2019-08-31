@@ -3,13 +3,14 @@ import './App.css'
 import {BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 import AnalystPage from "./pages/AnalystPage";
 import ResearcherPage from "./pages/ResearcherPage";
-import Main_Page from "./pages/Main Page";
+import Main_Page from "./pages/Main_Page";
 import GenericNotFound from "./pages/GenericNotFound";
 import NavBar from "./pages/NavBar";
 import Log_in_Page from "./pages/Log_in_Page"
 import {connect} from 'react-redux';
 import * as actions from '../store/actions/actions';
 import 'antd/dist/antd.css'
+import AnnotationPage from "./pages/AnnotationPage";
 
 const PrivateRoute = ({component: Component, ...rest}) => (
 
@@ -52,6 +53,7 @@ class App extends Component {
 
                             <PrivateRoute path="/Main_Page" exact component={Main_Page} auth={this.props.isAuthenticated}/>
                             <PrivateRoute path="/Researcher_Page" exact component={ResearcherPage} auth={this.props.isAuthenticated}/>
+                            <PrivateRoute path="/Annotation/:video_id" exact component={AnnotationPage} auth={this.props.isAuthenticated}/>
                             <PrivateRoute path="/Analyst_Page" exact component={AnalystPage} auth={this.props.isAuthenticated}/>
                             <Route path='*' component={GenericNotFound}/>
 

@@ -37,6 +37,7 @@ class NavBar extends React.Component {
                                     Analyst Page
                                 </Link>
 
+
                                 <Link
                                     to="/"
                                     onClick={this.props.logout}
