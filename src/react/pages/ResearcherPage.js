@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchBar from "../page_element/SearchBar";
-import MLabDatabaseListView from "../page_element/mLabDatabase";
+import SearchBar from "../components/SearchBar";
+import MLabDatabaseListView from "../components/mLabDatabase";
 
 class ResearcherPage extends React.Component {
 

@@ -109,3 +109,21 @@ export const changeSearchButton = label => {
         label: label
     }
 };
+
+export const get_detailed_view = mLab_id => {
+
+    return dispatch => {
+        axios.get(`http://127.0.0.1:8000/api/${mLab_id}`)
+            .then(res => {
+                const mlab_detail_view_video = res.data;
+                dispatch(detailView(mlab_detail_view_video))
+            });
+    }
+};
+
+export const detailView = mlab_detail => {
+    return {
+        type: actionTypes.DETAIL_VIEW,
+        mlab_video: mlab_detail
+    }
+};
