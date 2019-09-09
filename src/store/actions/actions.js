@@ -46,7 +46,7 @@ export const checkAuthTimeout = expirationTime => {
 export const authLogin = (username, password) => { //take in username and password
     return dispatch => {
         dispatch(authStart()); //dispatch that the login process has started - an alert
-        axios.post('http://127.0.0.1:8000/rest-auth/login/', {
+        axios.post('http://127.0.0.1:8000/api/auth/user', {
             username: username, //post the username and password to the django backend
             password: password
         })
@@ -67,23 +67,23 @@ export const authLogin = (username, password) => { //take in username and passwo
 
 // If there is no token, then simply log out.
 // Otherwise the new date will be the current time stored in the local storage.
-export const authCheckState = () => {
-    return dispatch => {
-        const token = localStorage.getItem('token');
-        if (token === undefined) {
-            dispatch(logout());
-        } else {
-            const expirationDate = new Date(localStorage.getItem('expirationDate'));
-            if (expirationDate <= new Date()) {
-                dispatch(logout()); //If expiraiton date has hapepend then dispatch logout.
-            } else {
-                dispatch(authSuccess(token)); //otherwise dispatch auth success with the token
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
-            }
-        }
-    }
-};
-
+// export const authCheckState = () => {
+//     return dispatch => {
+//         const token = localStorage.getItem('token');
+//         if (token === undefined) {
+//             dispatch(logout());
+//         } else {
+//             const expirationDate = new Date(localStorage.getItem('expirationDate'));
+//             if (expirationDate <= new Date()) {
+//                 dispatch(logout()); //If expiraiton date has hapepend then dispatch logout.
+//             } else {
+//                 dispatch(authSuccess(token)); //otherwise dispatch auth success with the token
+//                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+//             }
+//         }
+//     }
+// };
+//
 
 export const Search_Results = (mlabName, mlabCity, mlabDept, mlabClincCondi) => {
     return dispatch => {
