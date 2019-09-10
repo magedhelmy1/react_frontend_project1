@@ -5,7 +5,7 @@ import {updateObject} from './utility';
 
 const initialState = {
     token: localStorage.getItem("token"),
-    isAuthenticated: null,
+    isAuthenticated: false,
     isLoading: false,
     user: null
 };
@@ -40,6 +40,7 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
+    localStorage.removeItem("token");
     return updateObject(state, { //update the current state with a key token to null
         token: null,
         user: null,
@@ -48,7 +49,29 @@ const authLogout = (state, action) => {
     });
 };
 
+const logoutSuccess = (state, action) => {
+    localStorage.removeItem("token");
+    return updateObject(state, {
+        token: null,
+        user: null,
+        isAuthenticated: false,
+        isLoading: false
+    });
+};
 
+const userLoading = (state, action) => {
+    return updateObject(state, {
+        isLoading: true
+    });
+};
+
+const userLoaded = (state, action) => {
+    return updateObject(state, {
+        user: action.payload,
+        isAuthenticated: true,
+        isLoading: false
+    });
+};
 export default function (state = initialState, action) {
     switch (action.type) { //we want to return one this methods when we receive a certain action type
         //If the action type received equals any of the following
@@ -60,6 +83,12 @@ export default function (state = initialState, action) {
             return authFail(state, action);
         case actionTypes.AUTH_LOGOUT:
             return authLogout(state, action);
+        case actionTypes.LOGOUT_SUCCESS:
+            return logoutSuccess(state, action);
+        case actionTypes.USER_LOADING:
+            return userLoading(state, action);
+        case actionTypes.USER_LOADED:
+            return userLoaded(state, action);
 
         default:
             return state;

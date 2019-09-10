@@ -4,16 +4,22 @@ import "../App.css"
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/actions' //import all actions as action and access them using the dot function
 import {withRouter} from "react-router";
+import {Redirect} from "react-router-dom";
+import PropTypes from "prop-types";
 
 
 class LoginForm extends React.Component {
+
+    static propTypes = {
+        login: PropTypes.func.isRequired,
+        isAuthenticated: PropTypes.bool
+    };
 
     //Catch errors and display them correctly
     handleFormSubmit = e => {
         e.preventDefault();
         const user = e.target.elements.user.value;
         const password = e.target.elements.password.value;
-
         this.props.onAuth(user, password);
 
 
@@ -21,6 +27,9 @@ class LoginForm extends React.Component {
 
 
     render() {
+        if (this.props.isAuthenticated) {
+            return <Redirect to="/Main_Page"/>;
+        }
 
         let errorMessage = null;
         if (this.props.error) {
@@ -61,18 +70,18 @@ class LoginForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    return {
+        error: state.error,
+        isAuthenticated: state.auth.isAuthenticated
 
-        return {
-            error: state.error,
-            successLogin: state.token !== null
-        }
-    };
+    }
+};
 
 const mapDispatchToProps = dispatch => {
-        return {
-            onAuth: (username, password) => dispatch(actions.authLogin(username, password))
-        }
-    };
+    return {
+        onAuth: (username, password) => dispatch(actions.authLogin(username, password))
+    }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginForm));
 

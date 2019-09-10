@@ -4,7 +4,7 @@ import * as actionTypes from './actionTypes';
 // an action creator is a function that creates and returns an action.
 // Actions describe the fact that something happened, but don’t specify how the application’s state changes in response.
 // The actions are executed by the dispatch, and return an object that contains a type
-// Because the action has been dispatched, it goes to the store and recieved by the reducer.
+// Because the action has been dispatched, it goes to the store and received by the reducer.
 // the reducer will take a look at the action, and then executes the method.
 
 export const authStart = () => {
@@ -27,21 +27,6 @@ export const authFail = error => {
     }
 };
 
-export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    return {
-        type: actionTypes.AUTH_LOGOUT
-    };
-};
-
-export const checkAuthTimeout = expirationTime => {
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(logout());
-        }, expirationTime * 1000) //after 1 hour dispatch logout methods
-    }
-};
 
 export const authLogin = (username, password) => { //take in username and password
     return dispatch => {
@@ -52,11 +37,7 @@ export const authLogin = (username, password) => { //take in username and passwo
         })
             .then(res => { //get the promise back
                 const token = res.data.key; //it generates a key, that you save
-                const expirationDate = new Date(new Date().getTime() + 3600 * 1000); //grab the date
-                localStorage.setItem('token', token); //save the items in the browser storage using the API
-                localStorage.setItem('expirationDate', expirationDate); //save the items in the browser storage using the API
-                dispatch(authSuccess(token)); //dispatch that a token has been recieved - an alert
-                dispatch(checkAuthTimeout(3600)); //dispatch the time the user should be logged in for.
+                dispatch(authSuccess(token)); //dispatch that a token has been received - an alert
 
             })
             .catch(err => {
@@ -65,26 +46,73 @@ export const authLogin = (username, password) => { //take in username and passwo
     }
 };
 
-// If there is no token, then simply log out.
-// Otherwise the new date will be the current time stored in the local storage.
-// export const authCheckState = () => {
-//     return dispatch => {
-//         const token = localStorage.getItem('token');
-//         if (token === undefined) {
-//             dispatch(logout());
-//         } else {
-//             const expirationDate = new Date(localStorage.getItem('expirationDate'));
-//             if (expirationDate <= new Date()) {
-//                 dispatch(logout()); //If expiraiton date has hapepend then dispatch logout.
-//             } else {
-//                 dispatch(authSuccess(token)); //otherwise dispatch auth success with the token
-//                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
-//             }
-//         }
-//     }
-// };
-//
 
+// LOGOUT USER
+
+export const logout = () => (dispatch, getState) => {
+    axios
+        .post("/api/auth/logout/", null, tokenConfig(getState))
+        .then(res => {
+            dispatch(logoutSuccess());
+        })
+        .catch(err => {
+            dispatch(authFail(err))
+        });
+};
+
+export const logoutSuccess = () => {
+    return {
+        type: actionTypes.LOGOUT_SUCCESS
+    }
+};
+
+export const tokenConfig = getState => {
+    // Get token from state
+    const token = getState().auth.token;
+
+    // Headers
+    const config = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+
+    // If token, add to headers config
+    if (token) {
+        config.headers["Authorization"] = `Token ${token}`;
+    }
+
+    return config;
+};
+
+export const userLoading = () => {
+    return {
+        type: actionTypes.USER_LOADING,
+    }
+};
+
+export const userLoaded = (data) => {
+    return {
+        type: actionTypes.USER_LOADED,
+        payload: data
+    }
+};
+
+// CHECK if token exists and load user info
+export const loadUser = () => (dispatch, getState) => {
+    dispatch(userLoading());
+    axios
+        .get("/api/auth/user", tokenConfig(getState))
+        .then(res => {
+            dispatch(userLoaded(res.data.key));
+        })
+        .catch(err => {
+            dispatch(authFail(err))
+        });
+};
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
 export const Search_Results = (mlabName, mlabCity, mlabDept, mlabClincCondi) => {
     return dispatch => {
         axios.get(`http://127.0.0.1:8000/api/?mLab_name=${mlabName}&mLab_city_location=${mlabCity}&mLab_department=${mlabDept}&clinical_condition=${mlabClincCondi}`)

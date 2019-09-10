@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css'
-import {HashRouter as Router, Route, Redirect, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
 import AnalystPage from "./pages/AnalystPage";
 import ResearcherPage from "./pages/ResearcherPage";
 import Main_Page from "./pages/Main_Page";
@@ -12,8 +12,14 @@ import * as actions from '../store/actions/actions';
 import 'antd/dist/antd.css'
 import AnnotationPage from "./pages/AnnotationPage";
 import PrivateRoute from "./components/PrivateRoute"
+import {loadUser} from "../store/actions/actions";
+
 
 class App extends Component {
+
+    componentDidMount() {
+        this.props.loadUser()
+    }
 
     render() {
         return (
@@ -24,7 +30,7 @@ class App extends Component {
                     <NavBar {...this.props}/>
                     <div>
                         <Switch>
-                            <Route exact path="/login" component={Log_in_Page}/>
+                            <Route exact path="/" component={Log_in_Page}/>
                             <PrivateRoute exact path="/Main_Page" component={Main_Page}/>
                             <PrivateRoute exact path="/Researcher_Page" component={ResearcherPage}/>
                             <PrivateRoute exact path="/Annotation/:video_id" component={AnnotationPage}/>
@@ -49,4 +55,10 @@ class App extends Component {
 
 
 // By using connect, we connect our React App to the State
-export default connect(null, null)(App);
+const mapDispatchToProps = dispatch => {
+    return {
+        loadUser: () => dispatch(loadUser())
+    }
+};
+
+export default connect(null, mapDispatchToProps)(App);
