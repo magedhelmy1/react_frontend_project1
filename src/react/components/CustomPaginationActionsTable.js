@@ -14,7 +14,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import TableHead from '@material-ui/core/TableHead';
-import * as actions from "../../store/actions/actions";
+import * as actions from "../../store/actions/research";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
@@ -137,7 +137,7 @@ const CustomPaginationActionsTable = (props) => {
                     </TableHead>
                     <TableBody>
                         {props.rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => (
-                            <TableRow key={row.unique_id}>
+                            <TableRow key={row.id}>
                                 <TableCell component="th" scope="row">
                                     {row.mLab_name}
                                 </TableCell>
@@ -145,7 +145,7 @@ const CustomPaginationActionsTable = (props) => {
                                 <TableCell align="center">{row.mLab_department}</TableCell>
                                 <TableCell align="center">{row.clinical_condition}</TableCell>
                                 <TableCell
-                                    align="centre">
+                                    align="center">
                                     {
                                         <Link to={`Annotation/${row.id}`}>{row.session_videos}</Link>
                                     }

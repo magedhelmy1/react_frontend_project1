@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import * as actions from "../../store/actions/actions";
+import * as actions from "../../store/actions/research";
 
 class AnnotationPage extends Component {
 
@@ -26,7 +26,7 @@ const mapStateToProps = state => {
 
     return {
 
-        mlab_view: state.detail
+        mlab_view: state.researcher.detail
 
     };
 

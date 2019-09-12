@@ -8,53 +8,29 @@ import GenericNotFound from "./pages/GenericNotFound";
 import NavBar from "./pages/NavBar";
 import Log_in_Page from "./pages/Log_in_Page"
 import {connect} from 'react-redux';
-import * as actions from '../store/actions/actions';
 import 'antd/dist/antd.css'
 import AnnotationPage from "./pages/AnnotationPage";
-
-const PrivateRoute = ({component: Component, ...rest}) => (
-
-    <Route {...rest} render={(props) => (
-
-        rest.auth
-            ?
-            <Component {...props}/>
-            :
-            <Redirect to='/'/>
-
-    )}/>
-);
-
+import PrivateRoute from "./components/PrivateRoute"
+import * as actions from '../store/actions/auth';
 
 class App extends Component {
 
-    // Everytime this class is mounted, the componentDidMount() gets called, which dispatches the action mentioned.
     componentDidMount() {
-        this.props.onTryAutoSignup()
+        this.props.loadUser()
     }
 
     render() {
         return (
-
             <div>
-
                 <Router>
                     <NavBar {...this.props}/>
                     <div>
                         <Switch>
-                            <Route exact path="/"
-                                   render={() => (
-                                       this.props.isAuthenticated ? (
-                                           <Redirect to="/Main_Page"/>) : (
-                                           <Log_in_Page/>
-
-                                       )
-                                   )}/>
-
-                            <PrivateRoute path="/Main_Page" exact component={Main_Page} auth={this.props.isAuthenticated}/>
-                            <PrivateRoute path="/Researcher_Page" exact component={ResearcherPage} auth={this.props.isAuthenticated}/>
-                            <PrivateRoute path="/Annotation/:video_id" exact component={AnnotationPage} auth={this.props.isAuthenticated}/>
-                            <PrivateRoute path="/Analyst_Page" exact component={AnalystPage} auth={this.props.isAuthenticated}/>
+                            <Route exact path="/" component={Log_in_Page}/>
+                            <PrivateRoute exact path="/Main_Page" component={Main_Page}/>
+                            <PrivateRoute exact path="/Researcher_Page" component={ResearcherPage}/>
+                            <PrivateRoute exact path="/Annotation/:video_id" component={AnnotationPage}/>
+                            <PrivateRoute exact path="/Analyst_Page" component={AnalystPage}/>
                             <Route path='*' component={GenericNotFound}/>
 
                         </Switch>
@@ -70,25 +46,15 @@ class App extends Component {
 // The object is what we want map in the property.That will allow us to gain access to a property that are in the store.
 //
 
-const mapStateToProps = state => {
-
-    return {
-
-        isAuthenticated: state.token !== null
-
-    };
-
-};
 
 // Mapping a method to the state by dispatching an action.
-const mapDispatchToProps = dispatch => {
-    return {
-        onTryAutoSignup: () => dispatch(actions.authCheckState())
-    }
-};
 
 
 // By using connect, we connect our React App to the State
-export default connect(
-    mapStateToProps, mapDispatchToProps
-)(App);
+const mapDispatchToProps = dispatch => {
+    return {
+        loadUser: () => dispatch(actions.loadUser()),
+    }
+};
+
+export default connect(null, mapDispatchToProps)(App);

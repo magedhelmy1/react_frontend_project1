@@ -20,7 +20,7 @@ class MLabDatabaseListView extends Component {
 const mapStateToProps = (state) => {
 
     return {
-        mlabData: state.results,
+        mlabData: state.researcher.results,
     }
 };
 
