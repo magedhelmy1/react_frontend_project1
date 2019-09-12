@@ -1,87 +1,77 @@
-import React from 'react';
-import {Form, Button, Container} from 'react-bootstrap'
-import "../App.css"
-import {connect} from 'react-redux';
-import * as actions from '../../store/actions/actions' //import all actions as action and access them using the dot function
-import {withRouter} from "react-router";
+import React, {Component} from "react";
 import {Redirect} from "react-router-dom";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {login} from "../../store/actions/auth";
 
-
-class LoginForm extends React.Component {
+export class Login extends Component {
+    state = {
+        username: "",
+        password: ""
+    };
 
     static propTypes = {
         login: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool
     };
 
-    //Catch errors and display them correctly
-    handleFormSubmit = e => {
+    onSubmit = e => {
         e.preventDefault();
-        const user = e.target.elements.user.value;
-        const password = e.target.elements.password.value;
-        this.props.onAuth(user, password);
-
-
+        this.props.login(this.state.username, this.state.password);
     };
 
+    onChange = e => this.setState({[e.target.name]: e.target.value});
 
     render() {
         if (this.props.isAuthenticated) {
             return <Redirect to="/Main_Page"/>;
         }
-
-        let errorMessage = null;
-        if (this.props.error) {
-            errorMessage = (
-                <p>{this.props.error.message}</p>
-            );
-        }
-
+        const {username, password} = this.state;
         return (
-            <div>
-                <Container className="login">
+            <div className="col-md-6 m-auto">
+                <div className="card card-body mt-5">
+                    <h2 className="text-center">Login</h2>
+                    <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <label>Username</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="username"
+                                onChange={this.onChange}
+                                value={username}
+                            />
+                        </div>
 
-                    <Form onSubmit={this.handleFormSubmit}>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                name="password"
+                                onChange={this.onChange}
+                                value={password}
+                            />
+                        </div>
 
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label column="">Username</Form.Label>
-                            <Form.Control name='user' type="text" placeholder="Enter username"/>
-                        </Form.Group>
+                        <div className="form-group">
+                            <button type="submit" className="btn btn-primary">
+                                Login
+                            </button>
+                        </div>
 
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label column="">Password</Form.Label>
-                            <Form.Control name='password' type="password" placeholder="Password"/>
-                        </Form.Group>
-
-                        {errorMessage}
-
-                        <Button variant="primary" type="submit">
-                            Login
-                        </Button>
-
-                    </Form>
-
-                </Container>
+                    </form>
+                </div>
             </div>
-
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        error: state.error,
-        isAuthenticated: state.auth.isAuthenticated
 
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onAuth: (username, password) => dispatch(actions.authLogin(username, password))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginForm));
-
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+export default connect(
+    mapStateToProps,
+    {login}
+)(Login);

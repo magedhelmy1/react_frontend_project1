@@ -5,7 +5,7 @@ import {updateObject} from './utility';
 
 const initialState = {
     token: localStorage.getItem("token"),
-    isAuthenticated: false,
+    isAuthenticated: null,
     isLoading: false,
     user: null
 };
@@ -13,14 +13,14 @@ const initialState = {
 // The job of the reducer is take in the initial state
 // and manipulates it by updating the specific keys specified
 // When we say authStart, we update the state with -> error is null and the loading is true
-const authStart = (state, action) => { //Update the current state with the passed action from the action creators or from the form written
+const loginStart = (state, action) => { //Update the current state with the passed action from the action creators or from the form written
     return updateObject(state, {
         error: null,
         isLoading: true
     });
 };
 
-const authSuccess = (state, action) => {
+const loginSuccess = (state, action) => {
     return updateObject(state, {
         isAuthenticated: true,
         isLoading: false,
@@ -29,7 +29,7 @@ const authSuccess = (state, action) => {
     });
 };
 
-const authFail = (state, action) => {
+const authError = (state, action) => {
     localStorage.removeItem("token");
     return updateObject(state, {
         token: null,
@@ -39,9 +39,10 @@ const authFail = (state, action) => {
     });
 };
 
-const authLogout = (state, action) => {
+
+const logoutSuccess = (state, action) => {
     localStorage.removeItem("token");
-    return updateObject(state, { //update the current state with a key token to null
+    return updateObject(state, {
         token: null,
         user: null,
         isAuthenticated: false,
@@ -49,7 +50,7 @@ const authLogout = (state, action) => {
     });
 };
 
-const logoutSuccess = (state, action) => {
+const loginFail = (state, action) => {
     localStorage.removeItem("token");
     return updateObject(state, {
         token: null,
@@ -67,28 +68,29 @@ const userLoading = (state, action) => {
 
 const userLoaded = (state, action) => {
     return updateObject(state, {
-        user: action.payload,
         isAuthenticated: true,
-        isLoading: false
+        isLoading: false,
+        user: action.payload
     });
 };
 export default function (state = initialState, action) {
     switch (action.type) { //we want to return one this methods when we receive a certain action type
         //If the action type received equals any of the following
-        case actionTypes.AUTH_START:
-            return authStart(state, action);
-        case actionTypes.AUTH_SUCCESS:
-            return authSuccess(state, action);
-        case actionTypes.AUTH_FAIL:
-            return authFail(state, action);
-        case actionTypes.AUTH_LOGOUT:
-            return authLogout(state, action);
-        case actionTypes.LOGOUT_SUCCESS:
-            return logoutSuccess(state, action);
         case actionTypes.USER_LOADING:
             return userLoading(state, action);
         case actionTypes.USER_LOADED:
             return userLoaded(state, action);
+        case actionTypes.AUTH_ERROR:
+            return authError(state, action);
+        case actionTypes.LOGIN_START:
+            return loginStart(state, action);
+        case actionTypes.LOGIN_SUCCESS:
+            return loginSuccess(state, action);
+        case actionTypes.LOGIN_FAIL:
+            return loginFail(state, action);
+        case actionTypes.LOGOUT_SUCCESS:
+            return logoutSuccess(state, action);
+
 
         default:
             return state;

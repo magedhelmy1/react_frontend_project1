@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Col, Button, Jumbotron, Container} from 'react-bootstrap'
-import * as actions from "../../store/actions/actions";
+import * as actions from "../../store/actions/research";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 
@@ -68,7 +68,7 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        text_label: state.label,
+        text_label: state.researcher.label,
     }
 };
 

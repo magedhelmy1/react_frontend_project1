@@ -8,12 +8,10 @@ import GenericNotFound from "./pages/GenericNotFound";
 import NavBar from "./pages/NavBar";
 import Log_in_Page from "./pages/Log_in_Page"
 import {connect} from 'react-redux';
-import * as actions from '../store/actions/actions';
 import 'antd/dist/antd.css'
 import AnnotationPage from "./pages/AnnotationPage";
 import PrivateRoute from "./components/PrivateRoute"
-import {loadUser} from "../store/actions/actions";
-
+import * as actions from '../store/actions/auth';
 
 class App extends Component {
 
@@ -23,9 +21,7 @@ class App extends Component {
 
     render() {
         return (
-
             <div>
-
                 <Router>
                     <NavBar {...this.props}/>
                     <div>
@@ -57,7 +53,7 @@ class App extends Component {
 // By using connect, we connect our React App to the State
 const mapDispatchToProps = dispatch => {
     return {
-        loadUser: () => dispatch(loadUser())
+        loadUser: () => dispatch(actions.loadUser()),
     }
 };
 
