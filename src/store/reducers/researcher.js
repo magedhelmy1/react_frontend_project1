@@ -1,41 +1,35 @@
-import * as actionTypes from '../actions/actionTypes';
-import {updateObject} from './utility';
+import {
+    PRESENT_RESULTS,
+    BUTTON_LABEL,
+    DETAIL_VIEW,
+
+} from "../actions/actionTypes";
 
 const initialState = {
     results: [],
     label: 'Show All',
-    detail: 'Loading',
-
+    detail: "Loading",
 };
 
-const presentResult = (state, action) => {
-    return updateObject(state, {
-        results: action.results
-    });
-};
-
-const changeSearchButton = (state, action) => {
-    return updateObject(state, {
-        label: 'Search'
-    });
-};
-
-const view_mlab_view = (state, action) => {
-    return updateObject(state, {
-        detail: action.mlab_video
-    });
-};
 export default function (state = initialState, action) {
     switch (action.type) {
-        case actionTypes.PRESENT_RESULTS:
-            return presentResult(state, action);
-        case actionTypes.BUTTON_LABEL:
-            return changeSearchButton(state, action);
-        case actionTypes.DETAIL_VIEW:
-            return view_mlab_view(state, action);
+        case PRESENT_RESULTS:
+            return {
+                ...state,
+                results: action.results
+            };
+        case BUTTON_LABEL:
+            return {
+                ...state,
+                label: 'Search'
+            };
+        case DETAIL_VIEW:
+            return {
+                ...state,
+                detail: action.payload
+            };
 
         default:
             return state;
-
     }
 }

@@ -49,7 +49,7 @@ class NavBar extends React.Component {
 
                         :
 
-                        console.log("Please Log In To View NavBar")
+                        console.log()
 
                 }
 

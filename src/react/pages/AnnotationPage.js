@@ -1,20 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import axios from 'axios';
-import * as actions from "../../store/actions/research";
+import * as actions from "../../store/actions/researcher";
 
 class AnnotationPage extends Component {
 
 
     componentDidMount() {
-        this.props.mlab_detail(this.props.match.params.video_id)
+        this.props.get_detailed_view(this.props.match.params.video_id)
     }
 
     render() {
         return (
             <div>
 
-                <p> The name is : {this.props.mlab_view.mLab_name}</p>
+                <p> The name is : {this.props.detail.mLab_name}</p>
 
             </div>
         );
@@ -26,7 +25,7 @@ const mapStateToProps = state => {
 
     return {
 
-        mlab_view: state.researcher.detail
+        detail: state.researcher.detail
 
     };
 
@@ -35,7 +34,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 
     return {
-        mlab_detail: (mlab_id) => dispatch(actions.get_detailed_view(mlab_id))
+        get_detailed_view: (mlab_id) => dispatch(actions.get_detailed_view(mlab_id))
     }
 };
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css'
-import {BrowserRouter as Router, Route, Redirect, Switch} from "react-router-dom";
+import {HashRouter as Router, Route, Switch} from "react-router-dom";
 import AnalystPage from "./pages/AnalystPage";
 import ResearcherPage from "./pages/ResearcherPage";
 import Main_Page from "./pages/Main_Page";
@@ -17,6 +17,7 @@ class App extends Component {
 
     componentDidMount() {
         this.props.loadUser()
+
     }
 
     render() {
