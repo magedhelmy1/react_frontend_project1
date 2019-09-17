@@ -7,9 +7,13 @@ import thunk from 'redux-thunk';
 
 import combineReducer from './store/reducers/reducers';
 
+const initialState = {};
+
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(combineReducer,
+const store = createStore(
+    combineReducer,
+    initialState,
     composeEnhances(applyMiddleware(thunk)
     ));
 

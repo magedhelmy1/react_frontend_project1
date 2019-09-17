@@ -1,40 +1,39 @@
-import axios from 'axios';
-import * as actionTypes from './actionTypes';
+import axios from "axios";
+import {returnErrors} from "./messages";
 
-// an action creator is a function that creates and returns an action.
-// Actions describe the fact that something happened, but don’t specify how the application’s state changes in response.
-// The actions are executed by the dispatch, and return an object that contains a type
-// Because the action has been dispatched, it goes to the store and received by the reducer.
-// the reducer will take a look at the action, and then executes the method.
+import {
+    USER_LOADED,
+    USER_LOADING,
+    AUTH_ERROR,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    LOGOUT_SUCCESS,
 
-export const loginStart = () => {
-    return {
-        type: actionTypes.LOGIN_START
-    }
+} from "./actionTypes";
+
+// CHECK TOKEN & LOAD USER
+export const loadUser = () => (dispatch, getState) => {
+    // User Loading
+    dispatch({type: USER_LOADING});
+
+    axios
+        .get("http://127.0.0.1:8000/api/auth/user", tokenConfig(getState))
+        .then(res => {
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch({
+                type: AUTH_ERROR
+            });
+        });
 };
 
-export const loginSuccess = token => {
-    return {
-        type: actionTypes.LOGIN_SUCCESS,
-        token: token
-    }
-};
-
-export const authError = error => {
-    return {
-        type: actionTypes.AUTH_ERROR,
-        error: error
-    }
-};
-
-export const loginFail = error => {
-    return {
-        type: actionTypes.LOGIN_FAIL,
-    }
-};
-
+// LOGIN USER
 export const login = (username, password) => dispatch => {
-    dispatch(loginStart());
     // Headers
     const config = {
         headers: {
@@ -46,62 +45,33 @@ export const login = (username, password) => dispatch => {
     const body = JSON.stringify({username, password});
 
     axios
-        .post('http://127.0.0.1:8000/api/auth/login', body, config)
+        .post("http://127.0.0.1:8000/api/auth/login", body, config)
         .then(res => {
-            dispatch(loginSuccess(res.data));
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data
+            });
         })
         .catch(err => {
-            dispatch(loginFail());
-            dispatch(authError(err))
+            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch({
+                type: LOGIN_FAIL
+            });
         });
 };
 
 
 // LOGOUT USER
-
 export const logout = () => (dispatch, getState) => {
     axios
-        .post('http://127.0.0.1:8000/api/auth/logout', null, tokenConfig(getState))
+        .post("http://127.0.0.1:8000/api/auth/logout/", null, tokenConfig(getState))
         .then(res => {
-            dispatch(logoutSuccess());
+            dispatch({
+                type: LOGOUT_SUCCESS
+            });
         })
         .catch(err => {
-            dispatch(authError(err))
-        });
-};
-
-export const logoutSuccess = () => {
-    return {
-        type: actionTypes.LOGOUT_SUCCESS
-    }
-};
-
-
-export const userLoading = () => {
-    return {
-        type: actionTypes.USER_LOADING,
-    }
-};
-
-export const userLoaded = (data) => {
-    return {
-        type: actionTypes.USER_LOADED,
-        payload: data
-
-    }
-};
-// CHECK if token exists and load user info
-export const loadUser = () => (dispatch, getState) => {
-    // User Loading
-    dispatch(userLoading());
-
-    axios
-        .get('http://127.0.0.1:8000/api/auth/user', tokenConfig(getState))
-        .then(res => {
-            dispatch(userLoaded(res.data));
-        })
-        .catch(err => {
-            dispatch(authError(err))
+            dispatch(returnErrors(err.response.data, err.response.status));
         });
 };
 
@@ -124,3 +94,4 @@ export const tokenConfig = getState => {
 
     return config;
 };
+

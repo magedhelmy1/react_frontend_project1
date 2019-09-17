@@ -1,8 +1,7 @@
 import React from 'react';
 import {Form, Col, Button, Jumbotron, Container} from 'react-bootstrap'
-import * as actions from "../../store/actions/research";
+import * as actions from "../../store/actions/researcher";
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 
 
 class SearchBar extends React.Component {
@@ -15,8 +14,8 @@ class SearchBar extends React.Component {
         const mlabDept = e.target.elements.mlabDept.value;
         const mlabClincCondi = e.target.elements.mlabClincCondi.value;
 
-        this.props.search(mlabName, mlabCity, mlabDept, mlabClincCondi);
         this.props.change_button_text();
+        this.props.search(mlabName, mlabCity, mlabDept, mlabClincCondi);
     };
 
 
@@ -73,16 +72,15 @@ const mapStateToProps = (state) => {
 };
 
 
-const
-    mapDispatchToProps = dispatch => {
-        return {
-            search: (mlabName, mlabCity, mlabDept, mlabClincCondi) =>
-                dispatch(actions.Search_Results(mlabName, mlabCity, mlabDept, mlabClincCondi)),
-            change_button_text: () => dispatch(actions.changeSearchButton())
-        }
-    };
+const mapDispatchToProps = dispatch => {
+    return {
+        search: (mlabName, mlabCity, mlabDept, mlabClincCondi) =>
+            dispatch(actions.searchResults(mlabName, mlabCity, mlabDept, mlabClincCondi)),
+        change_button_text: () => dispatch(actions.changeSearchButton())
+    }
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchBar));
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
 
 
 
