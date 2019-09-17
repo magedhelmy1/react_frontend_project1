@@ -5,6 +5,8 @@ import AnalystPage from "./pages/AnalystPage";
 import ResearcherPage from "./pages/ResearcherPage";
 import Main_Page from "./pages/Main_Page";
 import GenericNotFound from "./pages/GenericNotFound";
+import uploadPage from "./pages/uploadPage";
+
 import NavBar from "./pages/NavBar";
 import Log_in_Page from "./pages/Log_in_Page"
 import {connect} from 'react-redux';
@@ -32,6 +34,8 @@ class App extends Component {
                             <PrivateRoute exact path="/Researcher_Page" component={ResearcherPage}/>
                             <PrivateRoute exact path="/Annotation/:video_id" component={AnnotationPage}/>
                             <PrivateRoute exact path="/Analyst_Page" component={AnalystPage}/>
+                            <PrivateRoute exact path="/Upload_Page" component={uploadPage}/>
+
                             <Route path='*' component={GenericNotFound}/>
 
                         </Switch>

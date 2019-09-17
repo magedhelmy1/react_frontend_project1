@@ -1,7 +1,12 @@
 import React from 'react';
-import {Form, Col, Button, Jumbotron, Container} from 'react-bootstrap'
+import {
+    Form, Col, Button, Jumbotron, Container,
+    ButtonToolbar, ButtonGroup
+} from 'react-bootstrap'
 import * as actions from "../../store/actions/researcher";
 import {connect} from "react-redux";
+import {withRouter} from "react-router";
+import {Link} from "react-router-dom";
 
 
 class SearchBar extends React.Component {
@@ -52,10 +57,28 @@ class SearchBar extends React.Component {
 
                             </Form.Row>
 
-                            <Button variant="primary" type="submit">
-                                {this.props.text_label}
-                            </Button>
+                            <ButtonToolbar
+                                className="justify-content-between"
+                                aria-label="Toolbar with Button groups">
 
+                                <ButtonGroup>
+                                    <Button variant="primary" type="submit">
+                                        {this.props.label}
+                                    </Button>
+                                </ButtonGroup>
+
+
+                                <ButtonGroup>
+
+                                    <Link
+                                        to="/Upload_Page">
+                                        <Button variant="info">
+                                            Upload
+                                        </Button>
+                                    </Link>
+
+                                </ButtonGroup>
+                            </ButtonToolbar>
 
                         </Form>
                     </Container>
@@ -67,7 +90,7 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        text_label: state.researcher.label,
+        label: state.researcher.label,
     }
 };
 
@@ -80,7 +103,7 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBar));
 
 
 
