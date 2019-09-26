@@ -14,8 +14,7 @@ class UploadPage extends Component {
         //
         // this.props.change_button_text();
         // this.props.search(mlabName, mlabCity, mlabDept, mlabClincCondi);
-        console.log(e.target.elements.salam.value)
-        console.log(e.target.file1[0])
+        console.log(e.target.elements.mLab_name.value)
 
     };
 
@@ -34,19 +33,19 @@ class UploadPage extends Component {
                                 </Form.Control>
                             </Form.Group>
 
-                            <Form.Group controlId="formGridAddress1">
+                            <Form.Group controlId="mLab_name">
                                 <Form.Label>mLab Name</Form.Label>
-                                <Form.Control name='salam'/>
+                                <Form.Control/>
                             </Form.Group>
 
                             <Form.Group controlId="formGridAddress2">
                                 <Form.Label>Doctor Name</Form.Label>
-                                <Form.Control/>
+                                <Form.Control name='mLab_name'/>
                             </Form.Group>
 
                             <Form.Group controlId="formGridAddress3">
                                 <Form.Label>Department</Form.Label>
-                                <Form.Control/>
+                                <Form.Control name='mLab_name'/>
                             </Form.Group>
 
                             <Form.Group controlId="formGridAddress4">

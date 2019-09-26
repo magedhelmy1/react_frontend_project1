@@ -6,7 +6,6 @@ import ResearcherPage from "./pages/ResearcherPage";
 import Main_Page from "./pages/Main_Page";
 import GenericNotFound from "./pages/GenericNotFound";
 import uploadPage from "./pages/uploadPage";
-
 import NavBar from "./pages/NavBar";
 import Log_in_Page from "./pages/Log_in_Page"
 import {connect} from 'react-redux';
@@ -14,6 +13,7 @@ import 'antd/dist/antd.css'
 import AnnotationPage from "./pages/AnnotationPage";
 import PrivateRoute from "./components/PrivateRoute"
 import * as actions from '../store/actions/auth';
+import fa_page from "./pages/fa_page";
 
 class App extends Component {
 
@@ -30,12 +30,12 @@ class App extends Component {
                     <div>
                         <Switch>
                             <Route exact path="/" component={Log_in_Page}/>
+                            {/*<PrivateRoute exact path="/otp_page" component={fa_page}/>*/}
                             <PrivateRoute exact path="/Main_Page" component={Main_Page}/>
                             <PrivateRoute exact path="/Researcher_Page" component={ResearcherPage}/>
                             <PrivateRoute exact path="/Annotation/:video_id" component={AnnotationPage}/>
                             <PrivateRoute exact path="/Analyst_Page" component={AnalystPage}/>
                             <PrivateRoute exact path="/Upload_Page" component={uploadPage}/>
-
                             <Route path='*' component={GenericNotFound}/>
 
                         </Switch>
