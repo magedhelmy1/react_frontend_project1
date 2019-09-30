@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css'
-import {HashRouter as Router, Route, Switch} from "react-router-dom";
+import { Router, Route, Switch } from 'react-router-dom'
 import AnalystPage from "./pages/AnalystPage";
 import ResearcherPage from "./pages/ResearcherPage";
 import Main_Page from "./pages/Main_Page";
@@ -14,19 +14,19 @@ import AnnotationPage from "./pages/AnnotationPage";
 import PrivateRoute from "./components/PrivateRoute"
 import * as actions from '../store/actions/auth';
 import otp_page from "./pages/otp_page";
+import history from '../react/components/history'
 
 class App extends Component {
 
     componentDidMount() {
         this.props.loadUser()
-
     }
 
     render() {
         return (
             <div>
 
-                <Router>
+                <Router history={history}>
                     <NavBar {...this.props}/>
                     <div>
                         <Switch>

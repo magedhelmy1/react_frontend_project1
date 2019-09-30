@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Formik} from "formik";
+import * as actions from "../../store/actions/otp";
 
 class otp_page extends Component {
 
@@ -18,12 +19,10 @@ class otp_page extends Component {
                     }}
 
                     onSubmit={(values, {setSubmitting}) => {
-
-                        // this.props.otp(values)
+                        this.props.otp(values);
                         setSubmitting(false);
 
-                    }}
-                >
+                    }}>
                     {({
                           values,
                           handleChange,
@@ -39,8 +38,7 @@ class otp_page extends Component {
                                 name="token"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.token}
-                            />
+                                value={values.token}/>
 
                             <button type="submit" disabled={isSubmitting}>
                                 Submit
@@ -56,8 +54,9 @@ class otp_page extends Component {
 
 
 const mapDispatchToProps = dispatch => {
-    return {
 
+    return {
+        otp: (values) => dispatch(actions.otp_action(values))
     };
 };
 export default connect(null,

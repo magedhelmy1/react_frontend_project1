@@ -1,9 +1,7 @@
 import React, {Component} from "react";
-import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {login} from "../../store/actions/auth";
-import {isAuth_isOTP} from "../../store/reducers/auth";
 import {withRouter} from "react-router-dom";
 
 export class Login extends Component {
@@ -20,21 +18,13 @@ export class Login extends Component {
     onSubmit = e => {
         e.preventDefault();
         this.props.login(this.state.username,
-            this.state.password,
-            this.props.history);
+            this.state.password);
 
     };
 
     onChange = e => this.setState({[e.target.name]: e.target.value});
 
     render() {
-        // if (this.props.isAuthenticated) {
-        //     return <Redirect to="/Main_Page"/>;
-        // }
-
-        // if (this.props.login_success) {
-        //     return <Redirect to="/otp_page"/>;
-        // }
 
         const {username, password} = this.state;
         return (

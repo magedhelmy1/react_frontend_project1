@@ -11,7 +11,7 @@ class NavBar extends React.Component {
             <div>
 
                 {
-                    this.props.isAuthenticated ?
+                    this.props.isAuth_isOTP ?
                         <nav className="navbar navbar-expand-lg navbar-light bg-light">
 
                             <div className="container-fluid">
@@ -61,7 +61,7 @@ class NavBar extends React.Component {
 
 
 const mapStateToProps = state => ({
-    isAuthenticated: isAuth_isOTP(state)
+    isAuth_isOTP: isAuth_isOTP(state)
 });
 
 

@@ -1,7 +1,6 @@
 import React from "react";
 import {Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {isAuth_isOTP} from "../../store/reducers/auth";
 
 const PrivateRoute = ({component: Component, isAuthenticated,isLoading, ...rest}) => (
     <Route
@@ -19,7 +18,7 @@ const PrivateRoute = ({component: Component, isAuthenticated,isLoading, ...rest}
 );
 
 const mapStateToProps = state => ({
-    isAuthenticated: isAuth_isOTP(state),
+    isAuthenticated: state.auth.isAuthenticated,
     isLoading: state.auth.isLoading
 
 });

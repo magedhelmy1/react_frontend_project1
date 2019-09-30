@@ -1,6 +1,6 @@
 import axios from "axios";
 import {returnErrors} from "./messages";
-
+import history from '../../react/components/history'
 
 import {
     USER_LOADED,
@@ -35,7 +35,7 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // LOGIN USER
-export const login = (username, password, history) => dispatch => {
+export const login = (username, password) => dispatch => {
     // Headers
     const config = {
         headers: {
@@ -45,7 +45,6 @@ export const login = (username, password, history) => dispatch => {
 
     // Request Body
     const body = JSON.stringify({username, password});
-
     axios
         .post("http://127.0.0.1:8000/api/auth/login", body, config)
         .then(res => {

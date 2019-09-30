@@ -190,10 +190,10 @@ const CustomPaginationActionsTable = (props) => {
 };
 
 
-const mapDispatchToProps = dispatch => {
-    return {
-        detail_view: (mlab_video) => dispatch(actions.get_detailed_view(mlab_video))
-    }
-};
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         detail_view: (mlab_video) => dispatch(actions.get_detailed_view(mlab_video))
+//     }
+// };
 
-export default withRouter(connect(null, mapDispatchToProps)(CustomPaginationActionsTable));
+export default withRouter(connect(null, null)(CustomPaginationActionsTable));
