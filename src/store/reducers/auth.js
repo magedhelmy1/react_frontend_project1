@@ -58,5 +58,3 @@ export default function (state = initialState, action) {
             return state;
     }
 }
-
-export const isAuth_isOTP = state => state.isAuthenticated && state.isOTPAuthenticated;
