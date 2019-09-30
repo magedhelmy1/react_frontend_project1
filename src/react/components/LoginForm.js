@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
 import {login} from "../../store/actions/auth";
 import {withRouter} from "react-router-dom";
 
@@ -8,11 +7,6 @@ export class Login extends Component {
     state = {
         username: "",
         password: ""
-    };
-
-    static propTypes = {
-        login: PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool
     };
 
     onSubmit = e => {
@@ -68,9 +62,4 @@ export class Login extends Component {
 }
 
 
-// const mapStateToProps = state => ({
-//     isAuthenticated: isAuth_isOTP(state),
-//     login_success: state.auth.isAuthenticated
-//
-// });
 export default withRouter(connect(null, {login})(Login))

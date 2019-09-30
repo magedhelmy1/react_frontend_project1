@@ -1,52 +1,33 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Formik} from "formik";
 import * as actions from "../../store/actions/otp";
+import {Form, Button, Container} from 'react-bootstrap'
 
 class otp_page extends Component {
+
+    handleFormSubmit = e => {
+        e.preventDefault();
+        const token = e.target.elements.OTPCode.value
+        this.props.otp(token)
+
+    };
+
 
     render() {
         return (
             <div>
-                <Formik
-                    initialValues={{token: ''}}
-                    validate={values => {
-                        let errors = {};
-                        if (!values.token) {
-                            errors.token = 'Required';
-                        }
-                        return errors;
-                    }}
+                <Container className="login">
+                    <Form onSubmit={this.handleFormSubmit}>
+                        <Form.Group controlId="OTPCode">
+                            <Form.Label column={1}> OTP Code</Form.Label>
+                            <Form.Control/>
+                        </Form.Group>
 
-                    onSubmit={(values, {setSubmitting}) => {
-                        this.props.otp(values);
-                        setSubmitting(false);
-
-                    }}>
-                    {({
-                          values,
-                          handleChange,
-                          handleBlur,
-                          handleSubmit,
-                          isSubmitting,
-
-
-                      }) => (
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="text"
-                                name="token"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.token}/>
-
-                            <button type="submit" disabled={isSubmitting}>
-                                Submit
-                            </button>
-                        </form>
-                    )}
-                </Formik>
-
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                </Container>
             </div>
         );
     }
