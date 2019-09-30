@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/auth';
-
+import {isAuth_isOTP} from '../../store/reducers/auth'
 class NavBar extends React.Component {
 
     render() {
@@ -61,7 +61,7 @@ class NavBar extends React.Component {
 
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: isAuth_isOTP(state)
 });
 
 

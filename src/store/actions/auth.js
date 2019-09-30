@@ -1,6 +1,7 @@
 import axios from "axios";
 import {returnErrors} from "./messages";
 
+
 import {
     USER_LOADED,
     USER_LOADING,
@@ -23,6 +24,7 @@ export const loadUser = () => (dispatch, getState) => {
                 type: USER_LOADED,
                 payload: res.data
             });
+
         })
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status));
@@ -33,7 +35,7 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // LOGIN USER
-export const login = (username, password) => dispatch => {
+export const login = (username, password, history) => dispatch => {
     // Headers
     const config = {
         headers: {
@@ -51,6 +53,10 @@ export const login = (username, password) => dispatch => {
                 type: LOGIN_SUCCESS,
                 payload: res.data
             });
+
+            if (res.data.token) {
+                history.push('/otp_page')
+            }
         })
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status));

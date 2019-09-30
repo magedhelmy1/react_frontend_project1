@@ -3,6 +3,8 @@ import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {login} from "../../store/actions/auth";
+import {isAuth_isOTP} from "../../store/reducers/auth";
+import {withRouter} from "react-router-dom";
 
 export class Login extends Component {
     state = {
@@ -17,15 +19,23 @@ export class Login extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        this.props.login(this.state.username, this.state.password);
+        this.props.login(this.state.username,
+            this.state.password,
+            this.props.history);
+
     };
 
     onChange = e => this.setState({[e.target.name]: e.target.value});
 
     render() {
-        if (this.props.isAuthenticated) {
-            return <Redirect to="/Main_Page"/>;
-        }
+        // if (this.props.isAuthenticated) {
+        //     return <Redirect to="/Main_Page"/>;
+        // }
+
+        // if (this.props.login_success) {
+        //     return <Redirect to="/otp_page"/>;
+        // }
+
         const {username, password} = this.state;
         return (
             <div className="col-md-6 m-auto">
@@ -68,10 +78,9 @@ export class Login extends Component {
 }
 
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-});
-export default connect(
-    mapStateToProps,
-    {login}
-)(Login);
+// const mapStateToProps = state => ({
+//     isAuthenticated: isAuth_isOTP(state),
+//     login_success: state.auth.isAuthenticated
+//
+// });
+export default withRouter(connect(null, {login})(Login))

@@ -13,7 +13,7 @@ import 'antd/dist/antd.css'
 import AnnotationPage from "./pages/AnnotationPage";
 import PrivateRoute from "./components/PrivateRoute"
 import * as actions from '../store/actions/auth';
-import fa_page from "./pages/fa_page";
+import otp_page from "./pages/otp_page";
 
 class App extends Component {
 
@@ -25,12 +25,13 @@ class App extends Component {
     render() {
         return (
             <div>
+
                 <Router>
                     <NavBar {...this.props}/>
                     <div>
                         <Switch>
                             <Route exact path="/" component={Log_in_Page}/>
-                            {/*<PrivateRoute exact path="/otp_page" component={fa_page}/>*/}
+                            <PrivateRoute exact path="/otp_page" component={otp_page}/>
                             <PrivateRoute exact path="/Main_Page" component={Main_Page}/>
                             <PrivateRoute exact path="/Researcher_Page" component={ResearcherPage}/>
                             <PrivateRoute exact path="/Annotation/:video_id" component={AnnotationPage}/>
@@ -63,3 +64,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(null, mapDispatchToProps)(App);
+
+
